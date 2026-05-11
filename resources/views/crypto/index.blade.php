@@ -573,7 +573,7 @@ async function processText(operation) {
 
     try {
         // POST to the Laravel process route with CSRF token
-        const response = await fetch('{{ route("crypto.process") }}', {
+        const response = await fetch('/process', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
