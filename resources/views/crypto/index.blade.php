@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -444,6 +444,7 @@
                 <option value="vernam">Vernam</option>
                 <option value="railfence">Rail Fence</option>
                 <option value="rowtransposition">Row Transposition</option>
+                <option value="des">DES</option>
             </select>
         </div>
 
@@ -530,6 +531,7 @@ const algoInfo = {
     vernam:           'Key: an alphabetic word. Each letter is XOR-ed with the corresponding key letter.',
     railfence:        'Key: a number ≥ 2 representing the number of rails (rows) in the zigzag pattern.',
     rowtransposition: 'Key: an alphabetic word. Column order is determined by the alphabetical order of key letters.',
+    des:              'Key: any text up to 8 characters (longer keys are truncated). Encrypted output is a HEX string — paste it back to decrypt.',
 };
 
 /**
@@ -572,8 +574,8 @@ async function processText(operation) {
     btn.disabled = true;
 
     try {
-        // POST to the Laravel process route with CSRF token
-        const response = await fetch('/process', {
+        // POST to the dedicated cipher route  e.g. /cipher/vigenere/encrypt
+        const response = await fetch(`/cipher/${algorithm}/${operation}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -656,4 +658,3 @@ document.getElementById('keyInput').addEventListener('keydown', (e) => {
 
 </body>
 </html>
-
